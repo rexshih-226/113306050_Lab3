@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>113306050_Lab3_Number Guessing Game</title>
+	<style>
+		#wrong, #correct{
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrong">
+		<img src="wrong.jpg" width="300" height="300">
+	</div>
+	<div id="correct">
+		<img src="correct.jpg" width="300" height="300">
+	</div>
+
+	<script type="text/javascript">
+		var randomNum = Math.floor(Math.random() * 100) + 1;
+		while(isNaN(randomNum) || randomNum <= 1 || randomNum >= 100){
+			randomNum = Math.floor(Math.random() * 100) + 1;
+		}
+
+		var times = 7;
+		var guessNum = window.prompt("請輸入1~100之間的數字\n還剩下" + times + "次機會");
+		var rangeMinNum = 1;
+		var rangeMaxNum = 100;
+
+		while(guessNum != randomNum && times > 0){
+			if(isNaN(guessNum) || guessNum >= rangeMaxNum || guessNum <= rangeMinNum){
+				alert("請輸入有效範圍內的數字!(不能選擇範圍的上下限)");
+				guessNum = window.prompt("請輸入" + rangeMinNum + "~" + rangeMaxNum + "之間的數字\n還剩下" + times + "次機會");	
+			}
+			else if(guessNum > randomNum){
+				rangeMaxNum = guessNum;
+				times--;
+				if(times != 0){
+					guessNum = window.prompt("請輸入" + rangeMinNum + "~" + guessNum + "之間的數字\n還剩下" + times + "次機會");
+				}
+				else{
+					times--;
+				}
+			}
+			else if(guessNum < randomNum){
+				rangeMinNum = guessNum;
+				times--;
+				if(times != 0){
+					guessNum = window.prompt("請輸入" + guessNum + "~" + rangeMaxNum + "之間的數字\n還剩下" + times + "次機會");
+				}
+			}
+		}
+
+		if(times == 0){
+			alert("You didn't get it.");
+			document.getElementById("wrong").style.display = "block";
+		}
+		else{
+			alert("You get the right answer!");
+			document.getElementById("correct").style.display = "block";
+		}
+	</script>
+</body>
+</html>
